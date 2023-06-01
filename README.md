@@ -1,5 +1,6 @@
 # HappyShopping.Co
 The Store link with password for Preview:-
+
 link:- https://happy-shopping-ecomm-store.myshopify.com/
 
 Password:- shaily
