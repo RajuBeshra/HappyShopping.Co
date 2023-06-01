@@ -1,0 +1,26 @@
+{%- liquid
+    assign btn = settings.notify_form_btn
+    if id
+        assign inputId = 'halo-notify-email' | append: id
+        assign buttonId = 'halo-btn-notify' | append: id
+    else
+        assign inputId = 'halo-notify-email'
+        assign buttonId = 'halo-btn-notify'
+    endif
+-%}
+
+<form class="notifyMe-form" method="post" action="">
+    <input type="hidden" name="halo-notify-product-site" value="{{ shop.name }}"/>
+    <input type="hidden" name="halo-notify-product-site-url" value="{{ shop.url }}"/>
+    <input type="hidden" name="halo-notify-product-title" value="{{ product.title }}" />
+    <input type="hidden" name="halo-notify-product-link" value="{{ shop.url | append: product.url }}"/>
+    <input type="hidden" name="halo-notify-product-variant" value="{{ current_variant.title }}"/>
+    <div class="form-field">
+        <label class="form-label" for="{{ inputId }}">{{ 'notify_form.general.title' | t }}</label>
+        <input class="form-input form-input-placeholder" type="email" name="email" required id="{{ inputId }}" placeholder="{{ 'notify_form.general.placeholder' | t }}">
+        <button type="button" class="button button-{{ btn }}" id="{{ buttonId }}" data-form-notify>
+            {{ 'notify_form.general.submit' | t }}
+        </button>
+    </div>
+</form>
+<div class="notifyMe-text"></div>

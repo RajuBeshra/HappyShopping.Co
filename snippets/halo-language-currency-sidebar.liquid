@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="{{ 'component-language-currency.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'component-language-currency.css' | asset_url | stylesheet_tag }}</noscript>
+
+<customer-language-currency class="halo-sidebar halo-sidebar-right halo-language-currency-sidebar" data-lang-currency-sidebar id="halo-language-currency-sidebar">
+    <div class="halo-sidebar-header text-left">
+        <a href="javascript:void(0)" class="halo-sidebar-close" data-close-lang-currency-sidebar alt="{{ 'general.common.close' | t }}">
+            {% render 'icon-close' %}
+            {{ 'general.common.close' | t }}
+        </a>
+	</div>
+    <div class="halo-sidebar-wrapper custom-scrollbar">
+        <div class="wrapper-language-currency">
+        	{% if settings.enable_multilang_shopify %}
+                <p class="title">{{ 'localization.language_label' | t }}</p>
+                {% render 'halo-top-language' %}
+            {% endif %}
+            {% if settings.enable_currencies %}
+                <p class="title">{{ 'currency.currency' | t }}</p>
+                {% render 'halo-top-currency' %}
+            {% endif %}
+        </div>
+    </div>
+</customer-language-currency>
+<script src="{{ 'halo-customer-language-currency.js' | asset_url }}" defer="defer"></script>

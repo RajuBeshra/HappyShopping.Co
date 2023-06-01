@@ -1,0 +1,72 @@
+{{ 'base.css' | asset_url | stylesheet_tag }}
+
+{%- if settings.banner_animation == 'effect_1' -%}
+	{{ 'base-banner-animation.css' | asset_url | stylesheet_tag }}
+    {{ 'component-card-banner-animation.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+{%- if settings.use_custom_css -%}
+	{{ 'custom.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+{%- if settings.enable_layout_rtl -%}
+	{{ 'layout_rtl.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+{{ 'animated.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
+{{ 'component-loading-banner.css' | asset_url | stylesheet_tag }}
+{{ 'component-quick-cart.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" href="{{ 'vendor.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'vendor.css' | asset_url | stylesheet_tag }}</noscript>
+
+{% if settings.product_card_layout == '02' %}
+	{{ 'component-card-02.css' | asset_url | stylesheet_tag }}
+{% elsif settings.product_card_layout == '03' %}
+	{{ 'component-card-03.css' | asset_url | stylesheet_tag }}
+{% elsif settings.product_card_layout == '04' %}
+	{{ 'component-card-04.css' | asset_url | stylesheet_tag }}
+{% elsif settings.product_card_layout == '05' %}
+	{{ 'component-card-05.css' | asset_url | stylesheet_tag }}
+{% elsif settings.product_card_layout == '06' %}
+	{{ 'component-card-06.css' | asset_url | stylesheet_tag }}
+{% elsif settings.product_card_layout == '07' %}
+	{{ 'component-card-07.css' | asset_url | stylesheet_tag }}
+{% endif %}
+
+{%- unless request.page_type == 'product' -%}
+	<link rel="stylesheet" href="{{ 'component-product-form.css' | asset_url }}" media="print" onload="this.media='all'">
+	<link rel="stylesheet" href="{{ 'component-review.css' | asset_url }}" media="print" onload="this.media='all'">
+	<link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
+	<link rel="stylesheet" href="{{ 'component-badge.css' | asset_url }}" media="print" onload="this.media='all'">
+	<link rel="stylesheet" href="{{ 'component-rte.css' | asset_url }}" media="print" onload="this.media='all'">
+	<link rel="stylesheet" href="{{ 'component-share.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- endunless -%}
+
+<link rel="stylesheet" href="{{ 'component-newsletter.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-list-social.css' | asset_url }}" media="print" onload="this.media='all'">
+
+
+{%- unless request.page_type == 'product' -%}
+	<noscript>{{ 'component-product-form.css' | asset_url | stylesheet_tag }}</noscript>
+	<noscript>{{ 'component-review.css' | asset_url | stylesheet_tag }}</noscript>
+	<noscript>{{ 'component-price.css' | asset_url | stylesheet_tag }}</noscript>
+	<noscript>{{ 'component-badge.css' | asset_url | stylesheet_tag }}</noscript>
+	<noscript>{{ 'component-rte.css' | asset_url | stylesheet_tag }}</noscript>
+	<noscript>{{ 'component-share.css' | asset_url | stylesheet_tag }}</noscript>
+{%- endunless -%}
+
+{%- if settings.show_quick_search -%}
+	<link rel="stylesheet" href="{{ 'component-predictive-search.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- endif -%}
+
+{%- if settings.show_product_marquee -%}
+	<link rel="stylesheet" href="{{ 'component-product-card-marquee.css' | asset_url }}" media="print" onload="this.media='all'">
+	<noscript>{{ 'component-product-card-marquee.css' | asset_url | stylesheet_tag }}</noscript>
+{%- endif -%}
+
+<noscript>{{ 'component-newsletter.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'component-slider.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'component-list-social.css' | asset_url | stylesheet_tag }}</noscript>

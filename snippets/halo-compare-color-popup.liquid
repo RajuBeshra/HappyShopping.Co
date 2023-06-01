@@ -1,0 +1,79 @@
+<link rel="stylesheet" href="{{ 'component-compare-color.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'component-compare-color.css' | asset_url | stylesheet_tag }}</noscript>
+
+<compare-color class="halo-popup halo-compare-color-popup customPopup-large" data-compare-color-popup id="halo-compare-color-popup">
+    <div class="halo-popup-wrapper">
+        <div class="halo-popup-header">
+            <button type="button" class="halo-popup-close clearfix" data-close-compare-color-popup aria-label="{{ 'general.common.close' | t }}">
+                {% render 'icon-close' %}
+                {{ 'general.common.close' | t }}
+            </button>
+            <h5 class="halo-popup-title text-center">
+                {{ 'compare_color.general.title' | t }}
+            </h5>
+        </div>
+        <div class="halo-popup-content halo-popup-scroll custom-scrollbar">
+            <div class="halo-compareColors">
+                <div class="halo-compareColors-swatch halo-productOptions">
+                    {%- liquid
+                        assign variantCount = product.variants | size
+                        assign swatch_type = settings.swatch_type
+                        assign colorList = ''
+                        assign color = ''
+                    -%}
+                    {%- if variantCount > 0 and product.variants.first.title != 'Default Title' -%}
+                        <ul class="compareColors-list list-unstyled text-left">
+                            {%- for variant in product.variants -%}
+                                {% capture color %}
+                                    {{ variant.options[index] }}
+                                {% endcapture %}
+                                {%- unless colorList contains color -%}
+                                    {%- assign text = color | handleize -%}
+                                    <li class="item">
+                                        <input class="swatch-compare-color-option" type="checkbox" name="swatch-compare-color-{{ text }}" value="{{ text }}" id="swatch-compare-color-{{ text }}">
+                                        <label
+                                            class="swatch-compare-color-label"
+                                            title="{{ color | strip }}"
+                                            {% if variant.image != null %} 
+                                                data-variant-img="{{ variant.image.src | img_url: '200x' }}"
+                                            {% else %}
+                                                data-variant-img="{{ product.featured_image.src | img_url: '200x' }}"
+                                            {% endif %}
+                                            for="swatch-compare-color-{{ text }}"
+                                        >   
+                                            {%- if variant.image %}
+                                                <span class="pattern" style="background-image: url({{ variant.image.src | img_url: '40x'}});"></span>
+                                            {%- else -%}
+                                                {%- if swatch_type == 'variant_image' -%}
+                                                    <span class="pattern" style="background-image: url({{ color | handle | append: '.' | append: file_extension | file_url }})"></span>
+                                                {%- else -%}
+                                                    <span class="pattern" style="background-color: {{ color | split: ' ' | last | handle }};"></span>
+                                                {%- endif -%}
+                                            {%- endif -%}
+                                        </label>
+                                        <span class="tooltip">
+                                            {{ text }}
+                                        </span>
+                                    </li>
+                                    {% capture tempList %}
+                                        {{ colorList | append: color | append: ' ' }}
+                                    {% endcapture %}
+                                    {% assign colorList = tempList %}
+                                {%- endunless -%}
+                            {%- endfor -%}
+                        </ul>
+                    {%- endif -%}
+                </div>
+                <div class="halo-compareColors-image custom-scrollbar-x text-left clearfix" {% if show_compare_color_drop_drap %} id="sortTableList"{% endif %}></div>
+                <div class="halo-compareColors-text text-center">
+                    {{ 'compare_color.general.text' | t }}
+                </div>
+            </div>
+        </div>
+    </div>
+</compare-color>
+{% if show_compare_color_drop_drap %}
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+{% endif %}
+<script src="{{ 'halo-compare-color.js' | asset_url }}" defer="defer"></script>

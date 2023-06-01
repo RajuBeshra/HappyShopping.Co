@@ -1,0 +1,24 @@
+{%- unless request.page_type == 'product' -%}
+	<link rel="stylesheet" href="{{ 'component-product.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- endunless -%}
+<link rel="stylesheet" href="{{ 'component-quick-view.css' | asset_url }}" media="print" onload="this.media='all'">
+
+{%- unless request.page_type == 'product' -%}
+	<noscript>{{ 'component-product.css' | asset_url | stylesheet_tag }}</noscript>
+{%- endunless -%}
+<noscript>{{ 'component-quick-view.css' | asset_url | stylesheet_tag }}</noscript>
+
+<div class="halo-popup halo-quick-view-popup customPopup-large" data-quick-view-popup id="halo-quick-view-popup">
+	<div class="halo-popup-wrapper">
+		<button type="button" class="halo-popup-close clearfix" data-close-quick-view-popup aria-label="{{ 'general.common.close' | t }}">
+	        {% render 'icon-close' %}
+	    </button>
+	    <div class="halo-popup-content halo-popup-scroll custom-scrollbar"></div>
+	</div>
+</div>
+
+<script src="{{ 'variants-quick-view.js' | asset_url }}" defer="defer"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+<script type="text/javascript">
+	window.variant_image_group_quick_view = {{ settings.show_quick_view_variant_image_group }};
+</script>
