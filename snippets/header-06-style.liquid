@@ -1,0 +1,573 @@
+<style>
+    {%- liquid
+        assign header_top_bg = section.settings.header_top_bg
+        assign header_top_color = section.settings.header_top_color
+
+        assign header_bottom_bg = section.settings.header_bottom_bg
+        assign header_bottom_bg_gradient = section.settings.header_bottom_bg_gradient
+
+        assign font_size_customer = section.settings.font_size_customer | append: 'px'
+
+        assign header_mobile_bg = section.settings.header_mobile_bg
+        assign header_mobile_color = section.settings.header_mobile_color
+
+        assign search_input_color = section.settings.search_input_color
+        assign search_input_bg_color = section.settings.search_input_bg_color
+        assign search_input_border = section.settings.search_input_border
+        assign input_font_size = section.settings.input_font_size | append: 'px'
+        assign input_text_transform = section.settings.input_text_transform
+        assign input_font_weight = section.settings.input_font_weight
+        assign search_button_color = section.settings.search_button_color
+        assign search_button_bg_color = section.settings.search_button_bg_color
+        assign search_button_border = section.settings.search_button_border
+        assign search_button_bg_color_gradient = section.settings.search_button_bg_color_gradient
+
+        assign cart_bg_item = section.settings.cart_bg_item
+        assign cart_color_item = section.settings.cart_color_item
+        assign cart_bg_item_mb = section.settings.cart_bg_item_mb
+        assign cart_color_item_mb = section.settings.cart_color_item_mb
+
+        assign lv_1_color = section.settings.lv_1_color
+        assign lv_1_color_hover = section.settings.lv_1_color_hover
+        assign lv_1_color_mb = section.settings.lv_1_color_mb
+
+        assign lv_2_color = section.settings.lv_2_color
+        assign lv_2_color_hover = section.settings.lv_2_color_hover
+        assign lv_2_color_mb = section.settings.lv_2_color_mb
+
+        assign lv_3_color = section.settings.lv_3_color
+        assign lv_3_color_hover = section.settings.lv_3_color_hover
+        assign lv_3_color_mb = section.settings.lv_3_color_mb
+
+        assign logo_width = section.settings.logo_width
+        assign logo_width_mobile = section.settings.logo_width_mobile
+        assign logo_font_size = section.settings.logo_font_size
+        assign logo_font_weight = section.settings.logo_font_weight
+        assign logo_color = section.settings.logo_color
+
+        assign sale_item_color = section.settings.sale_item_color
+
+        assign bg_mega_menu_style_4 = section.settings.bg_mega_menu_style_4
+        assign az_brand_link_text_color = section.settings.az_brand_link_text_color
+
+        if section.settings.show_label
+            assign new_label_color = section.settings.new_label_color
+            assign new_label_bg = section.settings.new_label_bg
+            assign new_label_bg_gradient = section.settings.new_label_bg_gradient
+            assign sale_label_color = section.settings.sale_label_color
+            assign sale_label_bg = section.settings.sale_label_bg
+            assign sale_label_bg_gradient = section.settings.sale_label_bg_gradient
+            assign hot_label_color = section.settings.hot_label_color
+            assign hot_label_bg = section.settings.hot_label_bg
+            assign hot_label_bg_gradient = section.settings.hot_label_bg_gradient
+        endif
+
+        assign bg_tab_home = section.settings.bg_tab_home
+        assign bg_tab_home_gradient = section.settings.bg_tab_home_gradient
+        assign tab_font_size = section.settings.tab_font_size | append: 'px'
+        assign tab_font_size_mb = section.settings.tab_font_size_mb | append: 'px'
+        assign tab_font_weight = section.settings.tab_font_weight
+        assign tab_font_weight_mb = section.settings.tab_font_weight_mb
+        assign padding_vertical = section.settings.padding_vertical | append: 'px'
+        assign padding_vertical_mb = section.settings.padding_vertical_mb | append: 'px'
+        assign padding_hozi = section.settings.padding_hozi | append: 'px'
+        assign padding_hozi_mb = section.settings.padding_hozi_mb | append: 'px'
+        assign color_border_separation = section.settings.color_border_separation
+    -%}
+
+    .header__location {
+        color: {{ header_top_color }};
+        font-size: {{ font_size_customer }};
+    }
+
+    .search_details .search-modal__form .search__input {
+        color: {{ search_input_color }};
+        background-color: {{ search_input_bg_color }};
+        border: 1px solid {{ search_input_border }};
+        font-weight: {{ input_font_weight }};
+        font-size: {{ input_font_size }};
+        text-transform: {{ input_text_transform }};
+    }
+
+    .search_details .search-modal__form  ::-webkit-input-placeholder {      
+        color: {{ search_input_color }};
+        font-weight: {{ input_font_weight }};
+        font-size: {{ input_font_size }};
+        text-transform: {{ input_text_transform }};
+    }
+
+    .search_details .search-modal__form  ::-moz-placeholder {
+        color: {{ search_input_color }};
+        font-weight: {{ input_font_weight }};
+        font-size: {{ input_font_size }};
+        text-transform: {{ input_text_transform }};
+    }
+
+    .search_details .search-modal__form :-ms-input-placeholder {
+        color: {{ search_input_color }};
+        font-weight: {{ input_font_weight }};
+        font-size: {{ input_font_size }};
+        text-transform: {{ input_text_transform }};
+    }
+
+    .search_details .search-modal__form  :-moz-placeholder {
+        color: {{ search_input_color }};
+    }
+
+    .search_details .search-modal__form .search__button {
+        background: {% if search_button_bg_color_gradient != blank %}{{ search_button_bg_color_gradient }}{% else %}{{ search_button_bg_color }}{% endif %};
+        color: {{ search_button_color }};
+        border: 1px solid {{ search_button_border }};
+    }
+
+    .header-top-right-group .customer-service-text {
+        color: {{ header_top_color }};
+    }
+
+    .cart-text, .customer-links, .wishlist-text, .customer-links a {
+        color: {{ header_top_color }};
+    }
+
+    .header__icon--cart .cart-count-bubble, 
+    .bottom-bar--list .cart-count-bubble,
+    .header__icon--wishlist .wishlist-count-bubble {
+        background-color: {{ cart_bg_item }};
+        color: {{ cart_color_item }};
+    }
+
+    .bottom-bar--list .cart-count-bubble .text,
+    .header__icon--wishlist .wishlist-count-bubble .text {
+        color: {{ cart_color_item }};
+    }
+
+    .wrapper-header-bottom{
+        {% if header_bottom_bg != 'rgba(0,0,0,0)' and header_bottom_bg != blank %}
+            background: {% if header_bottom_bg_gradient != blank %}{{ header_bottom_bg_gradient }}{% else %}{{ header_bottom_bg }}{% endif %};
+        {% endif %}
+    }
+
+    .nazbrandsLink .link{
+        color: {{ az_brand_link_text_color }};
+    }
+
+    {% if header_top_color != 'rgba(0,0,0,0)' and header_top_color != blank %}
+        .header__icon .icon{
+            fill: {{ header_top_color }};
+        }
+        .icon-hamburger .icon-line,.icon-hamburger .icon-line:after, .icon-hamburger .icon-line:before{
+            background-color: {{ header_top_color }};
+        }
+    {% endif %}
+
+    .header-mobile{
+        background-color: {{ header_mobile_bg }};
+    }
+
+    .header-mobile .header__icon .icon{
+        fill: {{ header_mobile_color }};
+    }
+
+    .header-mobile .header__heading .h2{
+        font-size: calc(var(--font-body-size) + 4px);
+        font-weight: var(--font-weight-bold);
+        color: {{ header_mobile_color }};
+    }
+
+    .mobileMenu-toggle__Icon,
+    .mobileMenu-toggle__Icon::before,
+    .mobileMenu-toggle__Icon::after{
+        background-color: {{ header_mobile_color }};
+    }
+
+    .menu-drawer__close-button{
+        font-size: {{ lv_1_font_size | append: 'px' }};
+        font-weight: {{ lv_1_font_weight }};
+        color: {{ lv_1_color }};
+        text-transform: {{ lv_1_text_transform }};
+    }
+
+    .menu-lv-1__action{
+        color: {{ lv_1_color }};
+    }
+
+    .menu-lv-2__action{
+        color: {{ lv_2_color }};
+    }
+
+    .menu-lv-3__action{
+        color: {{ lv_3_color }};
+    }
+    
+    .wrapper-header-bottom .header__icon .icon {
+        fill: {{ lv_1_color }};
+    }
+
+    .wrapper-header-bottom .header__icon--cart .cart-count-bubble {
+        background-color: {{ lv_1_color }};
+        color: {{ header_bottom_bg }};
+    }
+
+    .header-06.style_2 .wrapper-header-bottom .header__icon--cart .cart-count-bubble {
+        background-color: {{ cart_bg_item }};
+    }
+
+    .menu-lv-item.menu-lv-1:hover > a > .text {
+        border-bottom: 1px solid {{lv_1_color_hover}};
+    }
+
+    .menu-lv-item.menu-lv-2:hover > a > .text{
+        border-bottom: 1px solid {{lv_2_color_hover}};
+    }
+
+    .menu-lv-item.menu-lv-3:hover > a > .text,.site-nav-link:hover .text{
+        border-bottom: 1px solid {{lv_3_color_hover}};
+    }
+
+    .site-nav-title, .site-nav-title a, .menu-dropdown__block--title, .azbrandsTable .link{
+        color: {{ lv_2_color }};
+    }
+
+    .site-nav-link {
+        color: {{ lv_3_color }};
+    }
+
+    .header-06 .azbrandsTable li a.link {
+        color: {{ lv_3_color }};
+    }
+
+    .header-06 .azbrandsTable li a.link:hover {
+        color: {{ lv_3_color_hover }};
+    }
+
+    .fixed-right .header__icon .icon{
+        color: {{ lv_1_color }};
+        fill: {{ lv_1_color }};
+    }
+
+    {%- if section.settings.show_label -%}
+        .menu-lv-1 .label.new-label,
+        .menu-drawer__menu-item .label.new-label{
+            color: {{ new_label_color }};
+            background: {% if new_label_bg_gradient != blank %}{{ new_label_bg_gradient }}{% else %}{{ new_label_bg }}{% endif %};
+        }
+
+        .menu-lv-1 .label.new-label:before{
+            border-bottom-color: {{ new_label_bg }};
+        }
+
+        .menu-drawer__menu-item .label.new-label:before{
+            border-right-color: {{ new_label_bg }};
+        }
+
+        .menu-lv-1 .label.sale-label,
+        .menu-drawer__menu-item .label.sale-label{
+            color: {{ sale_label_color }};
+            background: {% if sale_label_bg_gradient != blank %}{{ sale_label_bg_gradient }}{% else %}{{ sale_label_bg }}{% endif %};
+        }
+
+        .menu-lv-1 .label.sale-label:before{
+            border-bottom-color: {{ sale_label_bg }};
+        }
+
+        .menu-drawer__menu-item .label.sale-label:before{
+            border-right-color: {{ sale_label_bg }};
+        }
+
+        .menu-lv-1 .label.hot-label,
+        .menu-drawer__menu-item .label.hot-label{
+            color: {{ hot_label_color }};
+            background: {% if hot_label_bg_gradient != blank %}{{ hot_label_bg_gradient }}{% else %}{{ hot_label_bg }}{% endif %};
+        }
+
+        .menu-lv-1 .label.hot-label:before{
+            border-bottom-color: {{ hot_label_bg }};
+        }
+
+        .menu-drawer__menu-item .label.hot-label:before{
+            border-right-color: {{ hot_label_bg }};
+        }
+    {%- endif -%}
+
+    .menu--mobile-lv-1__action > .icon{
+        fill: {{ lv_1_color }};
+    }
+
+    {% if sale_item_color != 'rgba(0,0,0,0)' and sale_item_color != blank %}
+        .menu-dropdown__text a.active-sale {
+            color: {{ sale_item_color }};
+        }
+        .menu-sale > .menu-lv-1__action,
+        .menu-sale > details > .menu--mobile-lv-1__action,
+        .menu-sale > .menu-lv-2__action,
+        .menu-sale > .menu-lv-3__action,
+        .menu-sale > details > .menu--mobile-lv-2__action,
+        .menu-sale > .menu--mobile-lv-3__action,
+        .active-sale > .site-nav-link,
+        .active-sale.site-nav-title{
+            color: {{ sale_item_color }}!important;
+        }
+
+        .menu-sale:hover > .menu-lv-1__action .text,
+        .menu-sale:hover > details > .menu--mobile-lv-1__action .text,
+        .menu-sale:hover > .menu-lv-2__action .text,
+        .menu-sale:hover > .menu-lv-3__action .text,
+        .menu-sale:hover > details > .menu--mobile-lv-2__action .text,
+        .menu-sale:hover > .menu--mobile-lv-3__action .text,
+        .active-sale:hover > .site-nav-link .text,
+        .active-sale.site-nav-title:hover .text{
+            border-bottom: 1px solid {{ sale_item_color }}!important;
+        }
+
+        .menu-sale > .menu--mobile-lv-1__action > .icon{
+            fill: {{ sale_item_color }}!important;
+        }
+    {% endif %}
+
+    /* Settings Header Tab */
+
+    .header-top--wrapper {
+        background: {% if bg_tab_home_gradient != blank %}{{ bg_tab_home_gradient }}{% else %}{{ bg_tab_home }}{% endif %};
+    }
+
+    .header-top--wrapper .header__list a {
+        font-size: {{ tab_font_size }};
+        padding: {{ padding_vertical }} {{ padding_hozi }};
+        font-weight: {{ tab_font_weight }};
+    }
+    
+    .header-top--left .header__list li svg {
+        height: {{ tab_font_size }};
+        width: auto;
+    }
+
+    .header-top--left .header__list li.separation {
+        background-color: {{ color_border_separation }};
+    }
+
+    {% if section.settings.header_style == 'style_2' %}
+        .halo-productBadges {
+            top: 15px;
+        }
+
+        .halo-productBadges--right {
+            right: 15px;
+        }
+
+        .halo-productBadges--left {
+            left: 15px;
+        }
+
+        .card-review {
+            line-height: 24px;
+        }
+
+        .banner-animation-1 .product-block__banner.shouldShow .product-block__cap--text {
+            font-style: italic;
+        }
+    {% endif %}
+
+    @media screen and (max-width: 1024px) {
+        {% if section.settings.logo_text != blank %}
+            .header-mobile--icon .header__heading-link{
+                height: {{ logo_width_mobile | append: 'px' }};
+                display: inline-block;
+                vertical-align: middle;
+            }
+        {% endif %}
+
+        .header-top--wrapper .header__list a {
+            padding: {{ padding_vertical_mb }} {{ padding_hozi_mb }};
+            font-size: {{ tab_font_size_mb }};
+            font-weight: {{ tab_font_weight_mb }};
+        }
+
+        .header-mobile--icon .header__heading-logo img {
+            width: {{ logo_width_mobile | append: 'px' }};
+        }
+
+        .header-mobile--icon .header__heading-link svg {
+            height: {{ logo_width_mobile | append: 'px' }};
+        }
+
+        .site-nav-mobile .menu-lv-1__action{
+            color: {{ lv_1_color_mb }};
+        }
+
+        .site-nav-mobile .menu-lv-2__action, .site-nav-mobile .site-nav-title, .site-nav-mobile .site-nav-title a{
+            color: {{ lv_2_color_mb }};
+        }
+
+        .site-nav-mobile .menu-lv-3__action, .site-nav-mobile .site-nav-link{
+            color: {{ lv_3_color_mb }};
+        }
+
+        .menu-lv-item.menu-lv-1:hover > a > .text,.menu-lv-item.menu-lv-2:hover > a > .text,.menu-lv-item.menu-lv-3:hover > a > .text{
+            border-bottom: 0;
+        }
+
+        {% if cart_bg_item_mb != 'rgba(0,0,0,0)' and cart_bg_item_mb != blank %}
+            .header__icon--cart .cart-count-bubble, .bottom-bar--list .cart-count-bubble, .bottom-bar--list .cart-count-bubble .text{
+                background-color: {{ cart_bg_item_mb }};
+                color: {{ cart_color_item_mb }};
+            }
+        {% endif %}
+
+
+        .bottom-bar--list .cart-count-bubble {
+            min-width: 20px;
+            min-height: 20px;
+        }
+
+        .bottom-bar--list .cart-count-bubble .text {
+            border-radius: 50%;
+            line-height: 20px;
+            font-size: var(--font-size);
+        }
+
+        .cart-text, .customer-links, .wishlist-text, .customer-links a{
+            color: #232323 !important;
+        }
+    }
+
+    @media (max-width: 992px) {
+        {% if section.settings.header_style == 'style_2' %}
+            .product-block-has__banner .product-block__banner.pd--style2 figure {
+                max-width: 100% !important;
+            }
+
+            .product-block-has__banner .product-block__banner,
+            .custom-image-banner-block {
+                overflow: hidden;
+            }
+
+            .product-block-has__banner .product-block__banner .product-block__cap.align-items--bottom {
+                transform: translate(-30%,-78%);
+            }
+
+            .style-dots-2 .halo-product-block .slick-dots {
+                bottom: -65px;
+            }
+
+            .style-dots-2 .halo-row .slick-dots {
+                bottom: -50px !important;
+            }
+        {% endif %}
+    }
+
+    @media (max-width: 551px) {
+        {% if section.settings.header_style == 'style_2' %}
+            .footer__content-top {
+                padding-bottom: 40px !important;
+            }
+
+            .footer-block__newsletter {
+                padding-top: 60px !important;
+                margin-bottom: 20px !important;
+            }
+
+            .column-5 .footer-block__details .image_logo img {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        {% endif %}
+    }
+
+    @media (min-width: 768px) and (max-width: 1200px){
+        {% if section.settings.header_style == 'style_2' %}
+            .column-5 .footer-block__item.footer-block__link_list+.footer-block__text{
+                width: 25%;
+            }
+
+            .column-5 .footer-block__details .image_logo img {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        {% endif %}
+    }
+
+    @media screen and (min-width: 1025px) {
+        .header-top,
+        .header-bottom{
+            display: block;
+        }
+        
+        .header-mobile {
+            display: none;
+        }
+
+        .header-top--right{
+            width: calc(100% - ({{ logo_width | append: 'px' }}));
+        }
+    
+        .header-06 .header-bottom .header__logo a{
+            width: var(--width_logo);
+            height: var(--height_logo);
+        }
+
+        .header-06 .header-bottom--wrapper .list-menu--inline {
+            padding-top: {{ section.settings.menu_top_spacing | append: 'px' }};
+        }
+
+        .header-06 .menu-lv-1__action {
+            padding-left: {{ section.settings.grid_gap_menu | append: 'px' }};
+            padding-right: {{ section.settings.grid_gap_menu | append: 'px' }};
+            padding-bottom: {{ section.settings.menu_bottom_spacing | append: 'px' }};
+        }
+
+        .header-06 .menu-lv-1__action:hover:before {
+            height: {{ section.settings.menu_bottom_spacing | append: 'px' }};
+        }
+
+        .wrapper-header-bottom .header-bottom-left svg{
+            height: {{ logo_width | append: 'px' }};
+        }
+
+        .header__heading .h2{
+            font-size: {{ logo_font_size  | append: 'px' }};
+            font-weight: {{ logo_font_weight }};
+            {% if logo_color != 'rgba(0,0,0,0)' and logo_color != blank %}
+                color: {{ logo_color }};
+            {% endif %}
+        }
+
+        {% if section.settings.logo_text != blank %}
+            .header__logo .header__heading-link{
+                height: {{ logo_width | append: 'px' }};
+                display: inline-block;
+            }
+        {% endif %}
+
+        .menu-lv-1:hover .menu-lv-1__action{
+            color: {{ lv_1_color_hover }};
+        }
+
+        .menu-lv-2:hover .menu-lv-2__action{
+            color: {{ lv_2_color_hover }};
+        }
+
+        .menu-lv-3:hover .menu-lv-3__action{
+            color: {{ lv_3_color_hover }};
+        }
+
+        .site-nav-title:hover, .site-nav-title a:hover,.menu-dropdown__block--title:hover{
+            color: {{ lv_2_color_hover }};
+        }
+
+        .site-nav-link:hover{
+            color: {{ lv_3_color_hover }};
+        }
+
+        .megamenu_style_4 .site-nav-banner, 
+        .megamenu_style_4 .site-nav-banner:before, 
+        .megamenu_style_4 .site-nav-banner:after,
+        .megamenu_style_5 .site-nav-banner, 
+        .megamenu_style_5 .site-nav-banner:before, 
+        .megamenu_style_5 .site-nav-banner:after{
+            background-color: {{ bg_mega_menu_style_4 }};
+        }
+
+        .header .has-megamenu .menu-dropdown{
+            background-color: {{ bg_mega_menu }};
+        }
+    }
+</style>

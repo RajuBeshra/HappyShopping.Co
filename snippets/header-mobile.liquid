@@ -1,0 +1,255 @@
+{% liquid 
+    if settings.header_mobile_layout == '01'
+        assign mobile_header_layout = 'mobile-header-1'
+    elsif settings.header_mobile_layout == '02'
+        assign mobile_header_layout = 'mobile-header-2'
+    endif
+%}
+<div class="header-mobile {{ mobile_header_layout }}">
+    <div class="container">
+        <div class="header-mobile--wrapper">
+            <div class="header-mobile--item header-mobile--left">
+                <div class="header-mobile--icon item__mobile--hamburger">
+                    <a class="mobileMenu-toggle" href="{{ routes.all_products_collection_url }}" data-mobile-menu aria-label="menu">
+                        <span class="mobileMenu-toggle__Icon"></span>
+                    </a>
+                </div>
+                {%- if settings.header_mobile_layout == '01' -%}
+                <div class="header-mobile--icon">
+                    {%- if section.settings.show_search -%}
+                        <details-modal class="header__iconItem header__search">
+                            <details>
+                                <summary class="header__icon header__icon--search header__icon--summary link link--text focus-inset modal__toggle" aria-haspopup="dialog" aria-label="{{ 'general.search.search' | t }}" data-search-mobile>
+                                    <span>
+                                        {% render 'icon-search', class: 'modal__toggle-open icon icon-search' %}
+                                        {% render 'icon-close', class: 'modal__toggle-close icon icon-close' %}
+                                    </span>
+                                </summary>
+                            </details>
+                        </details-modal>
+                    {%- endif -%}
+                </div>
+                {%- endif -%}
+                {%- if settings.header_mobile_layout == '02' -%}
+                    <div class="header-mobile--icon">
+                        {%- if menu_tab.size > 0 -%}
+                            {% assign page_handle = page.handle %}
+                                <div class="header__heading header__heading--item">
+                                {%- for block in menu_tab -%}
+                                    {%- liquid
+                                        assign multi_page_handle = pages[block.settings.link].handle
+                                        assign multi_page_url = pages[block.settings.link].url
+                                        assign class = 'header__heading-link focus-inset'
+    
+                                        if template.suffix contains 'landing'
+                                            if page_handle == multi_page_handle
+                                                assign class = 'header__heading-link focus-inset is-active'
+                                            endif
+                                        else
+                                            if forloop.first
+                                                assign class = 'header__heading-link focus-inset is-active'
+                                            endif
+                                        endif
+    
+                                        if multi_page_url != blank
+                                            assign url = multi_page_url
+                                        else
+                                            assign url = routes.root_url
+                                        endif
+                                    -%}
+    
+                                    <a href="{{ url }}" class="{{ class }} header__heading-logo 1">
+                                        {%- if block.settings.logo != blank -%}
+                                            {%- assign logo = block.settings.logo -%}
+                                            {%- assign logo_mb = block.settings.logo_mobile -%}
+                                            {%- assign logo_width = section.settings.logo_width_mobile -%}
+                                            {%- assign logo_width_img = logo_width | append: 'x' -%}
+                                            {%- assign logo_width_retina = logo_width | times: 2 | append: 'x'  -%}
+                                            {%- assign logo_height = section.settings.logo_width | divided_by: logo.aspect_ratio | round -%}
+                                            <img {% if logo_mb != blank %}class="logo-m-none"{% endif %} srcset="{{ logo | img_url: logo_width_img }}, {{ logo | img_url: logo_width_retina }} 2x"
+                                                src="{{ logo | img_url: logo_width_img }}" loading="lazy" width="{{ logo_width }}" height="{{ logo_height }}" alt="{{ logo.alt | default: shop.name | escape }}" class="header__heading-logo" style="--width-logo-mb: {{ section.settings.logo_width_mobile | append: 'px'}};">     
+                                            {% if logo_mb != blank %}
+                                            <img class="logo-d-none" srcset="{{ logo_mb | img_url: logo_width_img }}, {{ logo | img_url: logo_width_retina }} 2x"
+                                                    src="{{ image_mb | img_url: logo_width_img }}" loading="lazy" width="{{ logo_width }}" height="{{ logo_height }}" alt="{{ logo_mb.alt | default: shop.name | escape }}" class="header__heading-logo" style="--width-logo-mb: {{ section.settings.logo_width_mobile | append: 'px'}};">
+                                            {% endif %}
+                                        {%- elsif block.settings.logo_text != blank -%}
+                                            <span class="h2 {{ section.settings.logo_text_transform }}">{{ block.settings.logo_text }}</span>
+                                        {%- else -%}
+                                            <span class="h2 {{ section.settings.logo_text_transform }}">{{ shop.name }}</span>
+                                        {%- endif -%}
+                                    </a>
+                                {%- endfor -%}
+                                </div>
+                        {% else %}
+                                <a href="{{ routes.root_url }}" class="header__heading-link focus-inset 2">
+                                    {%- if section.settings.logo_mobile != blank -%}
+                                        {%- assign logo = section.settings.logo_mobile -%}
+                                        {%- assign logo_width = section.settings.logo_width_mobile -%}
+                                        {%- assign logo_width_img = logo_width | append: 'x' -%}
+                                        {%- assign logo_width_retina = logo_width | times: 2 | append: 'x'  -%}
+                                        {%- assign logo_height = section.settings.logo_width_mobile | divided_by: logo.aspect_ratio | round -%}
+                                        <img srcset="{{ logo | img_url: logo_width_img }}, {{ logo | img_url: logo_width_retina }} 2x" src="{{ logo | img_url: logo_width_img }}" loading="lazy" width="{{ logo_width }}" height="{{ logo_height }}" class="header__heading-logo" alt="{{ logo.alt | default: shop.name | escape }}" style="--width-logo-mb: {{ section.settings.logo_width_mobile | append: 'px'}};">
+                                    {%- elsif section.settings.logo != blank -%}
+                                        {%- assign logo = section.settings.logo -%}
+                                        {%- assign logo_width = section.settings.logo_width_mobile -%}
+                                        {%- assign logo_width_img = logo_width | append: 'x' -%}
+                                        {%- assign logo_width_retina = logo_width | times: 2 | append: 'x' -%}
+                                        {%- assign logo_height = section.settings.logo_width_mobile | divided_by: logo.aspect_ratio | round -%}
+                                        <img srcset="{{ logo | img_url: logo_width_img }}, {{ logo | img_url: logo_width_retina }} 2x" src="{{ logo | img_url: logo_width_img }}" loading="lazy" width="{{ logo_width }}" height="{{ logo_height }}" class="header__heading-logo" alt="{{ logo.alt | default: shop.name | escape }}" style="--width-logo-mb: {{ section.settings.logo_width_mobile | append: 'px'}};">
+                                    {%- elsif section.settings.logo_text != blank -%}
+                                        <span class="h2 {{ section.settings.logo_text_transform }}">{{ section.settings.logo_text }}</span>
+                                    {%- else -%}
+                                        <span class="h2 {{ section.settings.logo_text_transform }}">{{ shop.name }}</span>
+                                    {%- endif -%}
+                                </a>
+                        {% endif %}
+                    </div>
+                {%- endif -%}
+            </div>
+
+            {%- if settings.header_mobile_layout == '01' -%}
+            <div class="header-mobile--item header-mobile--center">
+                <div class="header-mobile--icon">
+                    {%- if menu_tab.size > 0 -%}
+                        {% assign page_handle = page.handle %}
+                            <div class="header__heading header__heading--item">
+                            {%- for block in menu_tab -%}
+                                {%- liquid
+                                    assign multi_page_handle = pages[block.settings.link].handle
+                                    assign multi_page_url = pages[block.settings.link].url
+                                    assign class = 'header__heading-link focus-inset'
+
+                                    if template.suffix contains 'landing'
+                                        if page_handle == multi_page_handle
+                                            assign class = 'header__heading-link focus-inset is-active'
+                                        endif
+                                    else
+                                        if forloop.first
+                                            assign class = 'header__heading-link focus-inset is-active'
+                                        endif
+                                    endif
+
+                                    if multi_page_url != blank
+                                        assign url = multi_page_url
+                                    else
+                                        assign url = routes.root_url
+                                    endif
+                                -%}
+
+                                <a href="{{ url }}" class="{{ class }} header__heading-logo 3">
+                                    {%- if block.settings.logo != blank -%}
+                                        {%- assign logo = block.settings.logo -%}
+                                        {%- assign logo_mb = block.settings.logo_mobile -%}
+                                        {%- assign logo_width = section.settings.logo_width_mobile -%}
+                                        {%- assign logo_width_img = logo_width | append: 'x' -%}
+                                        {%- assign logo_width_retina = logo_width | times: 2 | append: 'x'  -%}
+                                        {%- assign logo_height = section.settings.logo_width | divided_by: logo.aspect_ratio | round -%}                                     
+                                        <img {% if logo_mb != blank %}class="logo-m-none"{% endif %} srcset="{{ logo | img_url: logo_width_img }}, {{ logo | img_url: logo_width_retina }} 2x"
+                                                src="{{ logo | img_url: logo_width_img }}" loading="lazy" width="{{ logo_width }}" height="{{ logo_height }}" alt="{{ logo.alt | default: shop.name | escape }}" class="header__heading-logo" style="--width-logo-mb: {{ section.settings.logo_width_mobile | append: 'px'}};">
+                                        {% if logo_mb != blank %}
+                                        <img class="logo-d-none" srcset="{{ logo_mb | img_url: logo_width_img }}, {{ logo_mb | img_url: logo_width_retina }} 2x"
+                                                src="{{ logo_mb | img_url: logo_width_img }}" loading="lazy" width="{{ logo_width }}" height="{{ logo_height }}" alt="{{ logo_mb.alt | default: shop.name | escape }}" class="header__heading-logo" style="--width-logo-mb: {{ section.settings.logo_width_mobile | append: 'px'}};">
+                                        {% endif %}
+                                    {%- elsif block.settings.logo_text != blank -%}
+                                        <span class="h2 {{ section.settings.logo_text_transform }}">{{ block.settings.logo_text }}</span>
+                                    {%- else -%}
+                                        <span class="h2 {{ section.settings.logo_text_transform }}">{{ shop.name }}</span>
+                                    {%- endif -%}
+                                </a>
+                            {%- endfor -%}
+                            </div>
+                    {% else %}
+                            <a href="{{ routes.root_url }}" class="header__heading-link focus-inset 4">
+                                {%- if section.settings.logo_mobile != blank -%}
+                                    {%- assign logo = section.settings.logo_mobile -%}
+                                    {%- assign logo_width = section.settings.logo_width_mobile -%}
+                                    {%- assign logo_width_img = logo_width | append: 'x' -%}
+                                    {%- assign logo_width_retina = logo_width | times: 2 | append: 'x'  -%}
+                                    {%- assign logo_height = section.settings.logo_width_mobile | divided_by: logo.aspect_ratio | round -%}
+                                    <img srcset="{{ logo | img_url: logo_width_img }}, {{ logo | img_url: logo_width_retina }} 2x" src="{{ logo | img_url: logo_width_img }}" loading="lazy" width="{{ logo_width }}" height="{{ logo_height }}" class="header__heading-logo" alt="{{ logo.alt | default: shop.name | escape }}" style="--width-logo-mb: {{ section.settings.logo_width_mobile | append: 'px'}};">
+                                {%- elsif section.settings.logo != blank -%}
+                                    {%- assign logo = section.settings.logo -%}
+                                    {%- assign logo_width = section.settings.logo_width_mobile -%}
+                                    {%- assign logo_width_img = logo_width | append: 'x' -%}
+                                    {%- assign logo_width_retina = logo_width | times: 2 | append: 'x'  -%}
+                                    {%- assign logo_height = section.settings.logo_width_mobile | divided_by: logo.aspect_ratio | round -%}
+                                    <img srcset="{{ logo | img_url: logo_width_img }}, {{ logo | img_url: logo_width_retina }} 2x" src="{{ logo | img_url: logo_width_img }}" loading="lazy" width="{{ logo_width }}" height="{{ logo_height }}" class="header__heading-logo" alt="{{ logo.alt | default: shop.name | escape }}" style="--width-logo-mb: {{ section.settings.logo_width_mobile | append: 'px'}};">
+                                {%- elsif section.settings.logo_text != blank -%}
+                                    <span class="h2 {{ section.settings.logo_text_transform }}">{{ section.settings.logo_text }}</span>
+                                {%- else -%}
+                                    <span class="h2 {{ section.settings.logo_text_transform }}">{{ shop.name }}</span>
+                                {%- endif -%}
+                            </a>
+                    {% endif %}
+                </div>
+            </div>
+            {%- endif -%}
+            <div class="header-mobile--item header-mobile--right">
+                {%- if settings.header_mobile_layout == '02' -%}
+                    <div class="header-mobile--icon">
+                        {%- if section.settings.show_search -%}
+                            <details-modal class="header__iconItem header__search">
+                                <details>
+                                    <summary class="header__icon header__icon--search header__icon--summary link link--text focus-inset modal__toggle" aria-haspopup="dialog" aria-label="{{ 'general.search.search' | t }}" data-search-mobile>
+                                        <span>
+                                            {% render 'icon-search', class: 'modal__toggle-open icon icon-search' %}
+                                            {% render 'icon-close', class: 'modal__toggle-close icon icon-close' %}
+                                        </span>
+                                    </summary>
+                                </details>
+                            </details-modal>
+                        {%- endif -%}
+                    </div>
+                {%- endif -%}
+                <div class="header-mobile--icon">
+                    {%- if shop.customer_accounts_enabled and section.settings.show_customer -%}
+                    {% if routes.account_login_url contains '/account/login' %}
+                        {% assign is_contained = true %}
+                    {% else %}
+                        {% assign is_contained = false %}
+                    {% endif %}
+                    <a href="{{ routes.account_login_url }}" class="header__icon header__icon--account link link--text focus-inset"{% if is_contained %} data-open-auth-sidebar{% endif %}>
+                        {% if settings.header_layout == '02' or settings.header_layout == '09' %}
+                            {% render 'icon-account-2' %}
+                        {% else %}
+                            {% render 'icon-account' %}
+                        {% endif %}
+                        <span class="visually-hidden">
+                            {%- liquid
+                            if customer
+                            echo 'customer.account_fallback' | t
+                            else
+                            echo 'customer.log_in' | t
+                            endif
+                            -%}
+                        </span>
+                    </a>
+                    {%- endif -%}
+                </div>
+                {%- if section.settings.show_cart -%}
+                    <div class="header-mobile--icon">
+                        <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link link--text focus-inset" id="cart-icon-bubble"{% if settings.show_quick_cart %} data-cart-sidebar{% endif %}>
+                            {% if settings.header_layout == '02' or settings.header_layout == '03' or settings.header_layout == '05' %}
+                                {% render 'icon-cart-02' %}
+                            {% elsif settings.header_layout == '07' or settings.header_layout == '06' %}
+                                {% render 'icon-cart' %}
+                            {% elsif settings.header_layout == '08' or settings.header_layout == '04' or settings.header_layout == '09' %}
+                                {% render 'icon-cart-03' %}
+                            {% elsif settings.header_layout == '11' %}
+                                {% render 'icon-cart-04' %}
+                            {% else %}
+                                {% render 'icon-cart-02' %}
+                            {% endif %}
+                            <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
+                            <div class="cart-count-bubble">
+                                {%- if cart.item_count < 100 -%} <span class="text" aria-hidden="true" data-cart-count>{{ cart.item_count }}</span>
+                                    {%- endif -%}
+                                    <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+                            </div>
+                        </a>
+                    </div>
+                {%- endif -%}
+            </div>
+        </div>
+    </div>
+</div>
