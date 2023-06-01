@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-bulk-editor-page",
+      "settings": {
+        "container": "container",
+        "padding_full_width": 30,
+        "show_breadcrumb": true,
+        "breadcrumb_alignment": "left",
+        "show_page_title": true,
+        "page_title_alignment": "left",
+        "mg_top_desktop": 25,
+        "mg_top_tablet": 0,
+        "mg_top_mobile": 0,
+        "mg_bottom_desktop": 0,
+        "mg_bottom_tablet": 0,
+        "mg_bottom_mobile": 0
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
