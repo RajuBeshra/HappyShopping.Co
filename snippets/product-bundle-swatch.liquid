@@ -1,0 +1,62 @@
+{%- liquid
+    assign product_swatch_option = settings.swatch | downcase
+-%}
+
+{%- for option in product.options_with_values -%}
+    {%- liquid
+        assign is_swatch = false
+        assign option_index = forloop.index0
+        assign option_name = option.name | downcase
+        if product_swatch_option contains option_name
+            assign is_swatch = true
+        endif
+        assign values = ''
+    -%}
+    <div class="swatch clearfix" data-option-idx="{{ option_index }}">
+        <div class="swatch-label{% if is_swatch %} swatch-label-color{% endif %}">
+            {{ option.name }}:
+            <span data-header-option>
+                {{ option.selected_value }}
+            </span>
+        </div>
+        {%- for variant in product.variants -%}
+            {%- liquid
+                assign current_variant = product.selected_or_first_available_variant
+                assign value = variant.options[option_index]
+            -%}
+            {%- unless values contains value -%}
+                {%- liquid
+                    assign values = values | join: ';'
+                    assign values = values | append: ';' | append: value
+                    assign values = values | split: ';'
+                -%}
+                <div class="swatch-element{% if is_swatch %} color{% endif %} {{ value | handle }} {{ current_variant.title }}" data-value="{{ value | escape }}">
+                    <input class="single-option-selector option" data-variant="{{ variant.id }}" {% if option.selected_value == value %}checked{% endif %} id="bundle-swatch-{{ option_index }}-{{ value | handle }}-{{ product.id }}" type="radio" name="option-{{ option_index }}-{{ product.id }}" value="{{ value | escape }}"/>
+                    {%- if is_swatch -%}
+                        <label class="label" for="bundle-swatch-{{ option_index }}-{{ value | handle }}-{{ product.id }}">
+                            {%- if variant.image %}
+                                <span class="pattern" style="background-image: url({{ variant.image.src | product_img_url: '40x'}});" role="none"></span>
+                                <span class="visually-hidden">{{ value | escape }}</span>
+                                <span class="expand">
+                                    <img srcset="{{ variant.image.src | product_img_url: '75x'}}" src="{{ variant.image.src | product_img_url: '75x'}}" sizes="auto" loading="lazy" alt="{{ value | escape }}">
+                                </span>
+                            {%- else -%}
+                                {%- if settings.swatch_type == 'variant_image' -%}
+                                    <span class="pattern" style="background-image: url({{ value | handle | append: '.' | append: 'png' | file_url }})" role="none"></span>
+                                {%- else -%}
+                                    <span class="pattern" style="background-color: {{ value | split: ' ' | last | handle }};" role="none"></span>
+                                {%- endif -%}
+                                <span class="visually-hidden">{{ value | escape }}</span>
+                                <span class="expand">{{ value | escape }}</span>
+                            {%- endif -%}
+                        </label>
+                    {%- else -%}
+                        <label class="label" for="bundle-swatch-{{ option_index }}-{{ value | handle }}-{{ product.id }}">
+                            <span class="text">{{ value }}</span>
+                        </label>
+                    {%- endif -%}
+                </div>
+            {%- endunless -%}
+        {%- endfor -%}
+    </div>
+{%- endfor -%}
