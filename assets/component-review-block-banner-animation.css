@@ -1,0 +1,39 @@
+/* START: Banner Animation */
+body:not(.safari).banner-animation-1 .customer-review-block .halo-item img {
+    opacity: 0;
+    transform: scale(1.15);
+    transition: transform 800ms cubic-bezier(.13,.55,.25,1), opacity 700ms cubic-bezier(.26,.54,.32,1);
+}
+
+body:not(.safari).banner-animation-1 .customer-review-block .halo-item.shouldShow img {
+    opacity: 1;
+    transform: scale(1);
+}
+
+body:not(.safari).banner-animation-1 .customer-review-block .star-reviews,
+body:not(.safari).banner-animation-1 .customer-review-block .customer-review__content,
+body:not(.safari).banner-animation-1 .customer-review-block .name {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: transform 800ms cubic-bezier(.13,.55,.25,1), opacity 700ms cubic-bezier(.26,.54,.32,1);
+}
+
+body:not(.safari).banner-animation-1 .customer-review-block .shouldShow .star-reviews {
+    transition-delay: 150ms;
+}
+
+body:not(.safari).banner-animation-1 .customer-review-block .shouldShow .customer-review__content {
+    transition-delay: 300ms;
+}
+
+body:not(.safari).banner-animation-1 .customer-review-block .shouldShow .name {
+    transition-delay: 450ms;
+}
+
+body:not(.safari).banner-animation-1 .customer-review-block .shouldShow .star-reviews,
+body:not(.safari).banner-animation-1 .customer-review-block .shouldShow .customer-review__content,
+body:not(.safari).banner-animation-1 .customer-review-block .shouldShow .name {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* END: Banner Animation  */
