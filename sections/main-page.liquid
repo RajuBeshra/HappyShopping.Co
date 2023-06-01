@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="{{ 'component-rte.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'component-rte.css' | asset_url | stylesheet_tag }}</noscript>
+
+{% unless template.suffix contains 'landing' %}
+<div class="page-width page-width--narrow">
+	<div class="container">
+	  <h1 class="main-page-title page-header">
+	    {{ page.title | escape }}
+	  </h1>
+	  <div class="rte">
+	    {{ page.content }}
+	  </div>
+  	</div>
+</div>
+{% endunless %}
+
+{% schema %}
+{
+  "name": "t:sections.main-page.name",
+  "tag": "section",
+  "class": "spaced-section"
+}
+{% endschema %}
+
+

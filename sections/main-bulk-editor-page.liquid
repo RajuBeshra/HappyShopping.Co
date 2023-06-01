@@ -1,0 +1,436 @@
+{{ 'component-main-bulk-editor.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+    assign padding_top = section.settings.mg_top_desktop | append: 'px'
+    assign padding_bottom = section.settings.mg_bottom_desktop | append: 'px'
+    assign padding_top_tablet = section.settings.mg_top_tablet | append: 'px'
+    assign padding_bottom_tablet = section.settings.mg_bottom_tablet | append: 'px'
+    assign padding_top_mobile = section.settings.mg_top_mobile | append: 'px'
+    assign padding_bottom_mobile = section.settings.mg_bottom_mobile | append: 'px'
+    assign padding_full_width = section.settings.padding_full_width | append: 'px'
+    assign show_breadcrumb = section.settings.show_breadcrumb
+    assign breadcrumb_alignment = section.settings.breadcrumb_alignment
+    assign breadcrumb_bg = section.settings.breadcrumb_bg
+    assign breadcrumb_gradient = section.settings.breadcrumb_gradient
+    assign breadcrumb_bg_mb = section.settings.breadcrumb_bg_mb
+    assign breadcrumb_gradient_mb = section.settings.breadcrumb_gradient_mb
+    assign show_page_title = section.settings.show_page_title
+    assign page_title_alignment = section.settings.page_title_alignment
+    assign container = section.settings.container
+-%}
+
+<style type="text/css" media="screen">
+    #BulkEditorSection-{{ section.id }}{
+        padding-top: {{ padding_top }};
+        padding-bottom: {{ padding_bottom }};
+    }
+    
+    {% if  container == 'fullwidth' %}
+        #BulkEditorSection-{{ section.id }} {
+            padding-left: {{ padding_full_width }};
+            padding-right: {{ padding_full_width }};
+        }
+    {% endif %}
+
+    @media (max-width: 1024px) {
+        #BulkEditorSection-{{ section.id }}{
+            padding-top: {{ padding_top_tablet }};
+            padding-bottom: {{ padding_bottom_tablet }};
+        }
+
+        #BulkEditorSection-{{ section.id }} .breadcrumb {
+            background: {% if breadcrumb_gradient_mb != blank and breadcrumb_gradient_mb != 'rgba(0,0,0,0)' %}{{ breadcrumb_gradient_mb }}{% elsif breadcrumb_bg_mb != blank and breadcrumb_bg_mb != 'rgba(0,0,0,0)' %}{{ breadcrumb_bg_mb }}{% endif %};
+        }
+    }
+
+    @media (max-width: 550px) {
+        #BulkEditorSection-{{ section.id }}{
+            padding-top: {{ padding_top_mobile }};
+            padding-bottom: {{ padding_bottom_mobile }};
+        }
+    }
+    @media (min-width: 1025px) {
+        #BulkEditorSection-{{ section.id }} .breadcrumb-container {
+            position: relative;
+        }
+        
+        #BulkEditorSection-{{ section.id }} .breadcrumb::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: {% if breadcrumb_gradient != blank and breadcrumb_gradient != 'rgba(0,0,0,0)' %}{{ breadcrumb_gradient }}{% elsif breadcrumb_bg != blank and breadcrumb_bg != 'rgba(0,0,0,0)' %}{{ breadcrumb_bg }}{% endif %};
+            z-index: -1;
+        }
+    }
+</style>
+
+<div class="bulk-editor" data-section-id="{{ section.id }}" data-section-type="page" id="BulkEditorSection-{{ section.id }}" data-section="{{ section.id }}">
+    <div class="{% if container == '1170' %}container-1170{% elsif container == '1770' %}container-1770{% elsif container == 'fullwidth'%}container-full{% else %}container{% endif %}">
+        {%- if show_breadcrumb -%}
+            {% render 'breadcrumb', alignment: breadcrumb_alignment %}
+        {%- endif -%}
+        {%- if show_page_title -%}
+            <h1 class="page-header text-{{ page_title_alignment }}">
+                {{ page.title | escape }}
+            </h1>
+            <p class="page-subheader text-{{ page_title_alignment }}">
+                {{ 'bulk_editor_page.general.edit_metafields' | t }}
+            </p>
+        {%- endif -%}
+        <div class="halo-page-content">
+            <bulk-editor class="halo-bulk-editor">
+                <div class="bulk-editor-content">
+                    <div class="bulk-editor-sidebar">
+                        <div class="bulk-editor-selector">
+                            <div class="label-tab" data-toggle="dropdown" aria-expanded="false" role="button">
+                                <span class="label-text">
+                                    {{ 'bulk_editor_page.general.select_collection' | t }}
+                                </span>
+                                <span class="halo-icon-dropdown icon-dropdown" role="none">
+                                    {% render 'icon-caret' %}
+                                </span>
+                            </div>
+                            <ul class="list-unstyled custom-scrollbar">
+                                <li>
+                                    <a class="all-products" href="javascript:void(0)" data-title="{{ 'bulk_editor_page.general.all_collection' | t }}" data-href="&ids={% for product in category.products %}{{ product.id }}%2C{% endfor %}" data-bulk-list-item role="button">
+                                        <span class="text">{{ 'bulk_editor_page.general.all_collection' | t }}</span>
+                                    </a>
+                                </li>
+                                {%- for category in collections -%}
+                                    <li>
+                                        <a class="product" href="javascript:void(0)" data-title="{{ category.title }}" data-href="&collection_id={{ category.id }}" data-bulk-list-item role="button">
+                                            <span class="text">{{ category.title | escape }}</span>
+                                        </a>
+                                    </li>
+                                {%- endfor -%}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bulk-editor-main">
+                        <div class="bulk-editor-listing">
+                            <div class="content-item">
+                                <input id="variants_sku" type="checkbox" name="variants_sku" value="variants.sku%2C" checked>
+                                <label class="form-label--checkbox" for="variants_sku">SKU</label>
+                            </div>
+                            <div class="content-item">
+                                <input id="variants_price" type="checkbox" name="variants_price" value="variants.price%2C" checked>
+                                <label class="form-label--checkbox" for="variants_price">Price</label>
+                            </div>
+                            <div class="content-item">
+                                <input id="variants_compare_at_price" type="checkbox" name="variants_compare_at_price%2C" value="variants.compare_at_price" checked>
+                                <label class="form-label--checkbox" for="variants_compare_at_price">Compare At Price</label>
+                            </div>
+                            <div class="content-item">
+                                <input id="short_description" type="checkbox" name="short_description" value="metafields.c_f.short_description:string" checked>
+                                <label class="form-label--checkbox" for="short_description">Short Description</label>
+                            </div>
+                            <div class="content-item">
+                                <input id="countdown" type="checkbox" name="countdown" value="metafields.c_f.countdown:string" checked>
+                                <label class="form-label--checkbox" for="countdown">Countdown</label>
+                            </div>
+                            <div class="content-item">
+                                <input id="sizechart" type="checkbox" name="sizechart" value="metafields.c_f.size_chart:string" checked>
+                                <label class="form-label--checkbox" for="sizechart">Size Chart</label>
+                            </div>
+                            <div class="content-item">
+                                <input id="bundlediscountrate" type="checkbox" name="bundlediscountrate" value="metafields.c_f.bundle_discount_rate:string" checked>
+                                <label class="form-label--checkbox" for="bundlediscountrate">Bundle Discount Rate</label>
+                            </div>
+                            <div class="content-item">
+                                <input id="groupedsubproduct" type="checkbox" name="groupedsubproduct" value="metafields.c_f.grouped_sub_product:string" checked>
+                                <label class="form-label--checkbox" for="groupedsubproduct">Grouped Sub Product</label>
+                            </div>
+                            <div class="content-item">
+                                <input id="custom_tab" type="checkbox" name="custom_tab" value="metafields.c_f.custom_tab:string" checked>
+                                <label class="form-label--checkbox" for="custom_tab">Custom Tab</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bulk-editor-action text-center">
+                    <a class="button button--primary bulk-editor-submit" href="javascript:void(0)" target="_blank" >{{ 'bulk_editor_page.general.submit' | t }}</a>
+                </div>
+            </bulk-editor>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    class BulkEditor extends HTMLElement {
+        constructor() {
+            super();
+            this.bESelect = this.querySelector('.bulk-editor-selector');
+            this.bEListing = this.querySelector('.bulk-editor-listing');
+            this.submitButton = this.querySelector('.bulk-editor-submit');
+
+            this.bESelect.querySelectorAll('.label-tab').forEach((button) => {
+                button.addEventListener('click', this.onToggleDropdown.bind(this));
+            });
+
+            this.bESelect.querySelectorAll('[data-bulk-list-item]').forEach((button) => {
+                button.addEventListener('click', this.onSelectDropdown.bind(this));
+            });
+
+            this.submitButton.addEventListener('click', this.onSubmit.bind(this));
+
+            document.body.addEventListener('click', this.onBodyClickEvent.bind(this));
+        }
+
+        onToggleDropdown(event) {
+            if (event.currentTarget.getAttribute('aria-expanded') === 'false'){
+                event.currentTarget.setAttribute('aria-expanded', true);
+            } else {
+                event.currentTarget.setAttribute('aria-expanded', false);
+            }
+        }
+
+        onSelectDropdown(event) {
+            if (!event.currentTarget.classList.contains('is-active')) {
+                let value = event.currentTarget.getAttribute('data-value'),
+                    href = event.currentTarget.getAttribute('data-href'),
+                    text = event.currentTarget.querySelector('.text').innerText;
+
+                this.bESelect.querySelector('.label-text').innerText = text;
+                this.bESelect.querySelector('.label-tab').setAttribute('aria-expanded', false);
+
+                this.bESelect.querySelectorAll('[data-bulk-list-item]').forEach((element) => {
+                    if(!element.contains(event.target)){
+                        element.classList.remove('is-active');
+                    } else{
+                        element.classList.add('is-active');
+                    }
+                });
+            }
+        }
+
+        onSubmit(event) {
+            event.preventDefault();
+
+            let arrEditor = [],
+                character,
+                id = '';
+
+            if(!this.bEListing.querySelectorAll('input:checked').length) {
+                alert('Please choose metafields');
+            } else {
+                this.bEListing.querySelectorAll('input:checked').forEach((element) => {
+                    arrEditor.push(element.value);
+                });
+            }
+
+            character = arrEditor.join(',');
+
+            event.currentTarget.setAttribute('href', `/admin/bulk?resource_name=Product&edit=${character}`);
+
+            this.bESelect.querySelectorAll('[data-bulk-list-item]').forEach((element) =>{
+                if(element.classList.contains('product')){
+                    if (element.classList.contains('is-active')) {
+                        id = element.dataset.href;
+                    }
+                } else if (element.classList.contains('all-products')){
+                    if (element.classList.contains('is-active')) {
+                        id = '';
+                    }
+                }
+            });
+
+            window.open(`/admin/bulk?resource_name=Product&edit=${character}${id}`, '_blank');
+        }
+
+        onBodyClickEvent(event) {
+            if (!(event.target).closest('.bulk-editor-selector')){
+                this.bESelect.querySelector('.label-tab').setAttribute('aria-expanded', false);
+            }
+        }
+    }
+
+    customElements.define('bulk-editor', BulkEditor);
+</script>
+
+{% schema %}
+    {
+        "name": "t:sections.bulk_editor.name",
+        "settings":
+        [{
+            "type": "header",
+            "content": "t:sections.main-product.settings.header__1.content"
+        },
+        {
+            "type": "select",
+            "id": "container",
+            "label": "t:sections.layout.container.option",
+            "default": "container",
+            "options": [
+                {
+                    "value": "container",
+                    "label": "t:sections.layout.container.option1"
+                },
+                {
+                    "value": "1170",
+                    "label": "t:sections.layout.container.option4"
+                },
+                {
+                    "value": "1770",
+                    "label": "t:sections.layout.container.option3"
+                },
+                {
+                    "value": "fullwidth",
+                    "label": "t:sections.layout.container.option2"
+                }
+            ]
+        },
+        {
+            "type": "range",
+            "id": "padding_full_width",
+            "label": "t:sections.layout.container.padding_full_width",
+            "min": 0,
+            "max": 50,
+            "step": 5,
+            "unit": "t:sections.layout.fontsize.fontsize_title.unit",
+            "default": 0,
+            "info": "t:sections.layout.container.info_full_width"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_breadcrumb",
+            "label": "t:sections.general.settings.breadcrumb.label__1",
+            "default": false
+        },
+        {
+            "type": "select",
+            "id": "breadcrumb_alignment",
+            "label": "t:sections.general.settings.breadcrumb.label__2",
+            "options": [
+            {
+                "value": "left",
+                "label": "t:sections.general.settings.breadcrumb.options__1"
+            },
+            {
+                "value": "center",
+                "label": "t:sections.general.settings.breadcrumb.options__2"
+            },
+            {
+                "value": "right",
+                "label": "t:sections.general.settings.breadcrumb.options__3"
+            }],
+            "default": "center"
+        },
+        { 
+            "type": "color",
+            "id": "breadcrumb_bg",
+            "label": "t:settings_schema.colors.settings.colors_name.background_color"
+        },
+        {
+            "type": "color_background",
+            "id": "breadcrumb_gradient",
+            "label": "t:settings_schema.colors.settings.colors_name.background_color_gradient"
+        },
+        { 
+            "type": "color",
+            "id": "breadcrumb_bg_mb",
+            "label": "t:settings_schema.colors.settings.colors_name.background_color_mobile",
+            "default": "#f6f6f6"
+        },
+        {
+            "type": "color_background",
+            "id": "breadcrumb_gradient_mb",
+            "label": "t:settings_schema.colors.settings.colors_name.background_gradient_mobile"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_page_title",
+            "label": "t:sections.general.settings.page-title.label__1",
+            "default": false
+        },
+        {
+            "type": "select",
+            "id": "page_title_alignment",
+            "label": "t:sections.general.settings.page-title.label__2",
+            "options": [
+            {
+                "value": "left",
+                "label": "t:sections.general.settings.page-title.options__1"
+            },
+            {
+                "value": "center",
+                "label": "t:sections.general.settings.page-title.options__2"
+            },
+            {
+                "value": "right",
+                "label": "t:sections.general.settings.page-title.options__3"
+            }],
+            "default": "center"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.layout.margin_top"
+        },
+        {
+            "type": "range",
+            "id": "mg_top_desktop",
+            "label": "t:sections.layout.mg_desktop.label",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "mg_top_tablet",
+            "label": "t:sections.layout.mg_tablet.label",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "mg_top_mobile",
+            "label": "t:sections.layout.mg_mobile.label",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 0
+        },
+        {
+            "type": "header",
+            "content": "t:sections.layout.margin_bottom"
+        },
+        {
+            "type": "range",
+            "id": "mg_bottom_desktop",
+            "label": "t:sections.layout.mg_desktop.label",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "mg_bottom_tablet",
+            "label": "t:sections.layout.mg_tablet.label",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "mg_bottom_mobile",
+            "label": "t:sections.layout.mg_mobile.label",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 0
+        }]
+    }
+{% endschema %}

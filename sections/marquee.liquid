@@ -1,0 +1,451 @@
+{%- if section.blocks.size > 0 -%}
+    {{ 'section-marquee.css' | asset_url | stylesheet_tag }}
+
+    {%- liquid
+        assign padding_top = section.settings.padding_top
+        assign padding_bottom = section.settings.padding_bottom
+        assign background = section.settings.background
+        assign text_size = section.settings.text_size
+        assign gap_blocks = section.settings.gap_blocks
+        assign icon = section.settings.icon
+        assign icon_color = section.settings.icon_color
+    -%}
+    
+    <div class="marquee"
+        style="--padding-top: {{ padding_top | append: 'px' }};
+        --padding-bottom: {{ padding_bottom | append: 'px' }};
+        --padding-top-mobile: {{ padding_top | times: 0.5 | round: 0 | append: 'px' }};
+        --padding-bottom-mobile: {{ padding_bottom | times: 0.5 | round: 0 | append: 'px' }};
+        --padding-top-tablet: {{ padding_top | times: 0.75 | round: 0 | append: 'px' }};
+        --padding-bottom-tablet: {{ padding_bottom | times: 0.75 | round: 0 | append: 'px' }};
+        --background: {{ background }};
+        --text-size: {{ text_size }}px;
+        --gap-blocks: {{ gap_blocks | times: 0.5 | append: 'px' }};
+        --icon-color: {{ icon_color }}"
+    >
+        <div class="marquee__list">
+            {% case section.blocks.size %}
+            {% when 1 %}
+                {%- for i in (1..10) -%}
+                    {%- liquid
+                        assign text = section.blocks[0].settings.text
+                        assign color = section.blocks[0].settings.color
+                    -%}
+                    {%- if icon != 'none' -%}
+                        <span class="marquee__icon">
+                            {%- if icon == 'thunder' -%}
+                                {% render 'icon-thunder' %}
+                            {%- elsif icon == 'fire' -%}
+                                {% render 'icon-fire-2' %}
+                            {%- endif -%}
+                        </span>
+                    {%- endif -%}
+                    {%- if text != blank -%}
+                        <span class="marquee__item" style="--color: {{ color }}">
+                            {{ text }}
+                        </span>
+                    {%- endif -%}
+                {%- endfor -%}
+            {% when 2 %}
+                {%- for i in (1..10) -%}
+                    {%- liquid
+                        assign number = forloop.index | modulo : 2
+                        if number == 0
+                            assign text = section.blocks[1].settings.text
+                            assign color = section.blocks[1].settings.color
+                        else
+                            assign text = section.blocks[0].settings.text
+                            assign color = section.blocks[0].settings.color
+                        endif
+                    -%}
+                    {%- if icon != 'none' -%}
+                        <span class="marquee__icon">
+                            {%- if icon == 'thunder' -%}
+                                {% render 'icon-thunder' %}
+                            {%- elsif icon == 'fire' -%}
+                                {% render 'icon-fire-2' %}
+                            {%- endif -%}
+                        </span>
+                    {%- endif -%}
+                    {%- if text != blank -%}
+                        <span class="marquee__item" style="--color: {{ color }}">
+                            {{ text }}
+                        </span>
+                    {%- endif -%}
+                {%- endfor -%}
+            {% when 3 %}
+                {%- for i in (1..10) -%}
+                    {%- liquid
+                        assign number = forloop.index | modulo : 3
+                        if number == 0
+                            assign text = section.blocks[2].settings.text
+                            assign color = section.blocks[2].settings.color
+                        elsif number == 1
+                            assign text = section.blocks[0].settings.text
+                            assign color = section.blocks[0].settings.color
+                        else
+                            assign text = section.blocks[1].settings.text
+                            assign color = section.blocks[1].settings.color
+                        endif
+                    -%}
+                    {%- if icon != 'none' -%}
+                        <span class="marquee__icon">
+                            {%- if icon == 'thunder' -%}
+                                {% render 'icon-thunder' %}
+                            {%- elsif icon == 'fire' -%}
+                                {% render 'icon-fire-2' %}
+                            {%- endif -%}
+                        </span>
+                    {%- endif -%}
+                    {%- if text != blank -%}
+                        <span class="marquee__item" style="--color: {{ color }}">
+                            {{ text }}
+                        </span>
+                    {%- endif -%}
+                {%- endfor -%}
+            {% when 4 %}
+                {%- for i in (1..10) -%}
+                    {%- liquid
+                        assign number = forloop.index | modulo : 4
+                        if number == 0
+                            assign text = section.blocks[3].settings.text
+                            assign color = section.blocks[3].settings.color
+                        elsif number == 1
+                            assign text = section.blocks[0].settings.text
+                            assign color = section.blocks[0].settings.color
+                        elsif number == 2
+                            assign text = section.blocks[1].settings.text
+                            assign color = section.blocks[1].settings.color
+                        else
+                            assign text = section.blocks[2].settings.text
+                            assign color = section.blocks[2].settings.color
+                        endif
+                    -%}
+                    {%- if icon != 'none' -%}
+                        <span class="marquee__icon">
+                            {%- if icon == 'thunder' -%}
+                                {% render 'icon-thunder' %}
+                            {%- elsif icon == 'fire' -%}
+                                {% render 'icon-fire-2' %}
+                            {%- endif -%}
+                        </span>
+                    {%- endif -%}
+                    {%- if text != blank -%}
+                        <span class="marquee__item" style="--color: {{ color }}">
+                            {{ text }}
+                        </span>
+                    {%- endif -%}
+                {%- endfor -%}
+            {% when 5 %}
+                {%- for i in (1..10) -%}
+                    {%- liquid
+                        assign number = forloop.index | modulo : 5
+                        if number == 0
+                            assign text = section.blocks[4].settings.text
+                            assign color = section.blocks[4].settings.color
+                        elsif number == 1
+                            assign text = section.blocks[0].settings.text
+                            assign color = section.blocks[0].settings.color
+                        elsif number == 2
+                            assign text = section.blocks[1].settings.text
+                            assign color = section.blocks[1].settings.color
+                        elsif number == 3
+                            assign text = section.blocks[2].settings.text
+                            assign color = section.blocks[2].settings.color
+                        else
+                            assign text = section.blocks[3].settings.text
+                            assign color = section.blocks[3].settings.color
+                        endif
+                    -%}
+                    {%- if icon != 'none' -%}
+                        <span class="marquee__icon">
+                            {%- if icon == 'thunder' -%}
+                                {% render 'icon-thunder' %}
+                            {%- elsif icon == 'fire' -%}
+                                {% render 'icon-fire-2' %}
+                            {%- endif -%}
+                        </span>
+                    {%- endif -%}
+                    {%- if text != blank -%}
+                        <span class="marquee__item" style="--color: {{ color }}">
+                            {{ text }}
+                        </span>
+                    {%- endif -%}
+                {%- endfor -%}
+            {% endcase %}
+        </div>
+        <div class="marquee__list">
+            {% case section.blocks.size %}
+            {% when 1 %}
+                {%- for i in (1..10) -%}
+                    {%- liquid
+                        assign text = section.blocks[0].settings.text
+                        assign color = section.blocks[0].settings.color
+                    -%}
+                    {%- if icon != 'none' -%}
+                        <span class="marquee__icon">
+                            {%- if icon == 'thunder' -%}
+                                {% render 'icon-thunder' %}
+                            {%- elsif icon == 'fire' -%}
+                                {% render 'icon-fire-2' %}
+                            {%- endif -%}
+                        </span>
+                    {%- endif -%}
+                    {%- if text != blank -%}
+                        <span class="marquee__item" style="--color: {{ color }}">
+                            {{ text }}
+                        </span>
+                    {%- endif -%}
+                {%- endfor -%}
+            {% when 2 %}
+                {%- for i in (1..10) -%}
+                    {%- liquid
+                        assign number = forloop.index | modulo : 2
+                        if number == 0
+                            assign text = section.blocks[1].settings.text
+                            assign color = section.blocks[1].settings.color
+                        else
+                            assign text = section.blocks[0].settings.text
+                            assign color = section.blocks[0].settings.color
+                        endif
+                    -%}
+                    {%- if icon != 'none' -%}
+                        <span class="marquee__icon">
+                            {%- if icon == 'thunder' -%}
+                                {% render 'icon-thunder' %}
+                            {%- elsif icon == 'fire' -%}
+                                {% render 'icon-fire-2' %}
+                            {%- endif -%}
+                        </span>
+                    {%- endif -%}
+                    {%- if text != blank -%}
+                        <span class="marquee__item" style="--color: {{ color }}">
+                            {{ text }}
+                        </span>
+                    {%- endif -%}
+                {%- endfor -%}
+            {% when 3 %}
+                {%- for i in (1..10) -%}
+                    {%- liquid
+                        assign number = forloop.index | modulo : 3
+                        if number == 0
+                            assign text = section.blocks[2].settings.text
+                            assign color = section.blocks[2].settings.color
+                        elsif number == 1
+                            assign text = section.blocks[0].settings.text
+                            assign color = section.blocks[0].settings.color
+                        else
+                            assign text = section.blocks[1].settings.text
+                            assign color = section.blocks[1].settings.color
+                        endif
+                    -%}
+                    {%- if icon != 'none' -%}
+                        <span class="marquee__icon">
+                            {%- if icon == 'thunder' -%}
+                                {% render 'icon-thunder' %}
+                            {%- elsif icon == 'fire' -%}
+                                {% render 'icon-fire-2' %}
+                            {%- endif -%}
+                        </span>
+                    {%- endif -%}
+                    {%- if text != blank -%}
+                        <span class="marquee__item" style="--color: {{ color }}">
+                            {{ text }}
+                        </span>
+                    {%- endif -%}
+                {%- endfor -%}
+            {% when 4 %}
+                {%- for i in (1..10) -%}
+                    {%- liquid
+                        assign number = forloop.index | modulo : 4
+                        if number == 0
+                            assign text = section.blocks[3].settings.text
+                            assign color = section.blocks[3].settings.color
+                        elsif number == 1
+                            assign text = section.blocks[0].settings.text
+                            assign color = section.blocks[0].settings.color
+                        elsif number == 2
+                            assign text = section.blocks[1].settings.text
+                            assign color = section.blocks[1].settings.color
+                        else
+                            assign text = section.blocks[2].settings.text
+                            assign color = section.blocks[2].settings.color
+                        endif
+                    -%}
+                    {%- if icon != 'none' -%}
+                        <span class="marquee__icon">
+                            {%- if icon == 'thunder' -%}
+                                {% render 'icon-thunder' %}
+                            {%- elsif icon == 'fire' -%}
+                                {% render 'icon-fire-2' %}
+                            {%- endif -%}
+                        </span>
+                    {%- endif -%}
+                    {%- if text != blank -%}
+                        <span class="marquee__item" style="--color: {{ color }}">
+                            {{ text }}
+                        </span>
+                    {%- endif -%}
+                {%- endfor -%}
+            {% when 5 %}
+                {%- for i in (1..10) -%}
+                    {%- liquid
+                        assign number = forloop.index | modulo : 5
+                        if number == 0
+                            assign text = section.blocks[4].settings.text
+                            assign color = section.blocks[4].settings.color
+                        elsif number == 1
+                            assign text = section.blocks[0].settings.text
+                            assign color = section.blocks[0].settings.color
+                        elsif number == 2
+                            assign text = section.blocks[1].settings.text
+                            assign color = section.blocks[1].settings.color
+                        elsif number == 3
+                            assign text = section.blocks[2].settings.text
+                            assign color = section.blocks[2].settings.color
+                        else
+                            assign text = section.blocks[3].settings.text
+                            assign color = section.blocks[3].settings.color
+                        endif
+                    -%}
+                    {%- if icon != 'none' -%}
+                        <span class="marquee__icon">
+                            {%- if icon == 'thunder' -%}
+                                {% render 'icon-thunder' %}
+                            {%- elsif icon == 'fire' -%}
+                                {% render 'icon-fire-2' %}
+                            {%- endif -%}
+                        </span>
+                    {%- endif -%}
+                    {%- if text != blank -%}
+                        <span class="marquee__item" style="--color: {{ color }}">
+                            {{ text }}
+                        </span>
+                    {%- endif -%}
+                {%- endfor -%}
+            {% endcase %}
+        </div>
+    </div>
+{%- endif -%}
+
+{% schema %}
+    {
+        "name": "t:sections.marquee.name",
+        "max_blocks": 5,
+        "tag": "section",
+        "class": "section",
+        "settings": [
+            {
+                "id": "background",
+                "type": "color_background",
+                "label": "t:settings_schema.colors.settings.colors_name.background_color"
+            },
+            {
+                "type": "range",
+                "id": "text_size",
+                "label": "t:settings_schema.typography.settings.typography.text_font_size",
+                "min": 10,
+                "max": 60,
+                "step": 1,
+                "unit": "t:sections.layout.fontsize.fontsize_title.unit",
+                "default": 40
+            },
+            {
+                "type": "range",
+                "id": "gap_blocks",
+                "label": "t:sections.marquee.settings.gap_blocks",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "t:sections.layout.fontsize.fontsize_title.unit",
+                "default": 20
+            },
+            {
+                "type": "select",
+                "id": "icon",
+                "label": "t:settings_schema.typography.settings.typography.icon",
+                "default": "thunder",
+                "options": [
+                    {
+                        "value": "none",
+                        "label": "None"
+                    },
+                    {
+                        "value": "thunder",
+                        "label": "Thunder"
+                    },
+                    {
+                        "value": "fire",
+                        "label": "Fire"
+                    }
+                ]
+            },
+            {
+                "type": "color",
+                "id": "icon_color",
+                "default": "#000000",
+                "label": "t:settings_schema.typography.settings.typography.icon_color"
+            },
+            {
+                "type": "header",
+                "content": "t:sections.main-product.settings.general.spacing"
+            },
+            {
+                "type": "range",
+                "id": "padding_top",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "px",
+                "label": "t:sections.main-list-collections.settings.spacing.mg_top",
+                "default": 20
+            },
+            {
+                "type": "range",
+                "id": "padding_bottom",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "px",
+                "label": "t:sections.main-list-collections.settings.spacing.mg_bottom",
+                "default": 20
+            }
+        ],
+        "blocks": [
+            {
+                "type": "marquee",
+                "name": "t:sections.marquee.blocks.name",
+                "settings": [
+                    {
+                        "type": "richtext",
+                        "id": "text",
+                        "label": "t:settings_schema.general.settings.global_checkbox.label__2",
+                        "default": "<p>Welcome to our store</p>"
+                    },
+                    {
+                        "type": "color",
+                        "id": "color",
+                        "default": "#000000",
+                        "label": "t:settings_schema.colors.settings.colors_name.color"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "t:sections.marquee.presets.name",
+                "blocks": [
+                    {
+                        "type": "marquee"
+                    },
+                    {
+                        "type": "marquee"
+                    },
+                    {
+                        "type": "marquee"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}
