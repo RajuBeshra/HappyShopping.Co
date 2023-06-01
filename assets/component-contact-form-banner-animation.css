@@ -1,0 +1,46 @@
+/* Animation */
+body:not(.safari).banner-animation-1 .contact-container {
+    visibility: hidden;
+}
+
+body:not(.safari).banner-animation-1 .contact-container.shouldShow {
+    visibility: visible;
+}
+
+body:not(.safari).banner-animation-1 .contact-container .image-container {
+    opacity: 0;
+    transform: scale(1.15);
+    transition: transform 800ms cubic-bezier(.13,.55,.25,1), opacity 700ms cubic-bezier(.26,.54,.32,1);
+}
+
+body:not(.safari).banner-animation-1 .contact-container.shouldShow .image-container {
+    opacity: 1;
+    transform: scale(1);
+}
+
+body:not(.safari).banner-animation-1 .contact-container .breadcrumb-container,
+body:not(.safari).banner-animation-1 .contact-container .page-header,
+body:not(.safari).banner-animation-1 .contact-container .contact-text {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: transform 800ms cubic-bezier(.13,.55,.25,1), opacity 700ms cubic-bezier(.26,.54,.32,1);;
+}
+
+body:not(.safari).banner-animation-1 .contact-container .breadcrumb-container {
+    transition-delay: 150ms;
+}
+
+body:not(.safari).banner-animation-1 .contact-container .page-header {
+    transition-delay: 300ms;
+}
+
+body:not(.safari).banner-animation-1 .contact-container .contact-text {
+    transition-delay: 450ms;
+}
+
+body:not(.safari).banner-animation-1 .contact-container.shouldShow .breadcrumb-container,
+body:not(.safari).banner-animation-1 .contact-container.shouldShow .page-header,
+body:not(.safari).banner-animation-1 .contact-container.shouldShow .contact-text {
+    opacity: 1;
+    transform: translateY(0);
+}

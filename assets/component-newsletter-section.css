@@ -1,0 +1,101 @@
+.newsletter-section  {
+    background: pink;
+}
+
+.newsletter-section .section-content {
+    --gap: 50px;
+
+    display: flex;
+    align-items: center;
+
+    gap: var(--gap);
+}
+
+.newsletter-section .section-content .title {
+    max-width: 20%; 
+
+    font-size: var(--title-font-size); 
+    color: var(--title-color); 
+    font-weight: var(--title-font-weight);
+}
+
+.newsletter-section .section-content .description {
+    max-width: 24%;
+    
+    font-size: var(--description-font-size);  
+    color: var(--description-color);  
+    font-weight: var(--description-font-weight);
+} 
+
+.newsletter-section .section-form-wrapper {
+    flex-grow: 1;
+}
+
+.newsletter-section .newsletter-form__field-wrapper {
+    display: flex;
+    gap: var(--form-gap);
+}
+
+.newsletter-section .newsletter-form__field-wrapper .field__input {
+    background: var(--input-background);
+    border: 1px solid var(--input-border-color);
+    border-radius: var(--input-border-radius);
+    font-size: var(--font-body-size);
+}
+
+.newsletter-section .newsletter-form__field-wrapper .form-input-placeholder::placeholder {
+    color: var(--placeholder-color);
+}
+
+.newsletter-section .newsletter-form__button {
+    width: var(--button-width); 
+    font-size: var(--button-font-size);
+    font-weight: var(--button-font-weight);     
+    text-transform: var(--button-text-transform);
+
+    color: var(--button-text-color);
+    border: 1px solid var(--button-border-color);
+    background: var(--button-background);
+}
+
+.newsletter-section .newsletter-form__button:hover {
+    color: var(--button-text-color-hover);
+    border: 1px solid var(--button-border-color-hover);
+    background: var(--button-background-hover);
+}
+
+
+@media screen and (max-width: 1024px) {
+    .newsletter-section .section-content .title {
+        font-size: var(--title-font-size-mb);
+    }
+
+    .newsletter-section .section-content .description {
+        font-size: var(--description-font-size-mb);
+    }
+
+    .newsletter-section .section-content {
+        --gap: 20px;
+
+        flex-wrap: wrap;
+    }
+
+    .newsletter-section .section-content .title,
+    .newsletter-section .section-content .description,
+    .newsletter-section .section-form-wrapper {
+        max-width: 100%;
+        text-align: center;
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .newsletter-section .section-content {
+        --gap: 15px;
+        flex-direction: column;
+    }
+
+    .newsletter-section .section-form-wrapper {
+        margin-top: 10px;
+    }
+}   

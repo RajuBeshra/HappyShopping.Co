@@ -1,0 +1,55 @@
+/* Animation */
+body:not(.safari).banner-animation-1 .product-block__banner .product-block__image {
+    overflow: hidden;
+}
+
+body:not(.safari).banner-animation-1 .product-block__banner .product-block__image img {
+    opacity: 0;
+    transform: scale(1.2);
+    transition: transform 800ms cubic-bezier(.13,.55,.25,1), opacity 700ms cubic-bezier(.26,.54,.32,1);
+}
+
+body:not(.safari).banner-animation-1 .product-block__banner.shouldShow .product-block__image img {
+    opacity: 1;
+    transform: scale(1);
+}
+
+body:not(.safari).banner-animation-1 .product-block__banner .product-block__cap--text,
+body:not(.safari).banner-animation-1 .product-block__banner .product-block__cap--subText,
+body:not(.safari).banner-animation-1 .product-block__banner .product-block__cap--description,
+body:not(.safari).banner-animation-1 .product-block__banner .product-block__cap--button .button {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: transform 800ms cubic-bezier(.13,.55,.25,1), opacity 700ms cubic-bezier(.26,.54,.32,1);
+}
+
+body:not(.safari).banner-animation-1 .product-block__banner.shouldShow  .product-block__cap--text {
+    transition-delay: 150ms;
+}
+
+body:not(.safari).banner-animation-1 .product-block__banner.shouldShow  .product-block__cap--subText {
+    transition-delay: 300ms;
+}
+
+body:not(.safari).banner-animation-1 .product-block__banner.shouldShow  .product-block__cap--description {
+    transition-delay: 450ms;
+}
+
+body:not(.safari).banner-animation-1 .product-block__banner.shouldShow  .product-block__cap--button .button {
+    transition-delay: 600ms;
+    pointer-events: none;
+}
+
+body:not(.safari).banner-animation-1 .product-block__banner.shouldShow  .product-block__cap--button .button.banner-button-animated {
+    transition: all var(--duration-long) var(--button-transition-ease) !important;
+    transition-delay: 0ms;
+    pointer-events: auto;
+}
+
+body:not(.safari).banner-animation-1 .product-block__banner.shouldShow  .product-block__cap--text,
+body:not(.safari).banner-animation-1 .product-block__banner.shouldShow  .product-block__cap--subText,
+body:not(.safari).banner-animation-1 .product-block__banner.shouldShow  .product-block__cap--description,
+body:not(.safari).banner-animation-1 .product-block__banner.shouldShow  .product-block__cap--button .button {
+    opacity: 1;
+    transform: translateY(0);
+}

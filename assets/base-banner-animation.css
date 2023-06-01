@@ -1,0 +1,21 @@
+body:not(.safari).banner-animation-1 .block-banner-slider .banner a {
+    opacity: 0;
+    transform: scale(1.15);
+    transition: transform 800ms cubic-bezier(.13,.55,.25,1), opacity 700ms cubic-bezier(.26,.54,.32,1);
+}
+
+body:not(.safari).banner-animation-1 .block-banner-slider .banner.shouldShow a {
+    opacity: 1;
+    transform: scale(1);
+}
+
+body:not(.safari).banner-animation-1 .image-zoom.image-animated:hover img,
+body:not(.safari).banner-animation-1 .featured-blog-block .shouldShow .article-card__image-wrapper .image-zoom.image-animated:hover img {
+    transform: scale(1.06);
+}
+
+body:not(.safari).banner-animation-1 .large-lookbook-banner-wrapper .slick-dots,
+body:not(.safari).banner-animation-1 .large-lookbook-banner-wrapper .slider-dots {
+    transform: unset;
+    opacity: unset;
+}
