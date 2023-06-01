@@ -1,0 +1,83 @@
+/* Animation */
+@media(min-width: 1025px) {
+    body:not(.safari).banner-animation-1 .spotlight-block .image-container {
+        overflow: hidden;
+    }
+    
+    body:not(.safari).banner-animation-1 .spotlight-block .spotlight-item .img-box {
+        display: block;
+        transform: scale(1.15);
+        transition: transform 800ms cubic-bezier(.13,.55,.25,1), opacity 700ms cubic-bezier(.26,.54,.32,1);
+    }
+    
+    body:not(.safari).banner-animation-1 .spotlight-block .shouldShow .spotlight-item .img-box {
+        opacity: 1;
+        transform: scale(1);
+    }
+    
+    body:not(.safari).banner-animation-1 .spotlight-block .spotlight-item .sub_title,
+    body:not(.safari).banner-animation-1 .spotlight-block .spotlight-item .title,
+    body:not(.safari).banner-animation-1 .spotlight-block .spotlight-item .des,
+    body:not(.safari).banner-animation-1 .spotlight-block .spotlight-item:not(.enable_border_color) .spotlight-button {
+        opacity: 0;
+        transform: translateY(25px);
+        transition: transform 1000ms 200ms cubic-bezier(.26,.54,.32,1), opacity 1000ms cubic-bezier(.26,.54,.32,1);
+    }
+    
+    body:not(.safari).banner-animation-1 .spotlight-block .spotlight-item .sub_title {
+        transition-delay: 400ms;
+    }
+    
+    body:not(.safari).banner-animation-1 .spotlight-block .spotlight-item .title {
+        transition-delay: 550ms;
+    }
+    
+    body:not(.safari).banner-animation-1 .spotlight-block .spotlight-item .des {
+        transition-delay: 700ms;
+    }
+    
+    body:not(.safari).banner-animation-1 .spotlight-block .spotlight-item:not(.enable_border_color) .spotlight-button {
+        transition-delay: 850ms;
+        pointer-events: none;
+    }
+    
+    body:not(.safari).banner-animation-1 .spotlight-block .spotlight-item .spotlight-button.banner-button-animated {
+        transition: all var(--duration-long) var(--button-transition-ease) !important;
+        transition-delay: 0ms;
+        pointer-events: auto;
+    }
+    
+    body:not(.safari).banner-animation-1 .spotlight-block .shouldShow .spotlight-item .sub_title,
+    body:not(.safari).banner-animation-1 .spotlight-block .shouldShow .spotlight-item .title,
+    body:not(.safari).banner-animation-1 .spotlight-block .shouldShow .spotlight-item .des,
+    body:not(.safari).banner-animation-1 .spotlight-block .shouldShow .spotlight-item:not(.enable_border_color) .spotlight-button {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    body:not(.safari).banner-animation-1 .spotlight-block .content_absolute .content {
+        overflow-y: hidden;
+    }
+    
+    body:not(.safari).banner-animation-1 .spotlight-block .shouldShow .spotlight-item.enable_border_color:hover .spotlight-button {
+        opacity: 1;
+        visibility: visible;
+        transition-delay: 0ms;
+    }
+    
+    body:not(.safari).banner-animation-1 .spotlight-block .slider-dots {
+        transform: none;
+    }
+
+    body:not(.safari).banner-animation-1 .spotlight-item.enable_border_color:hover .spotlight-button,
+    body:not(.safari).banner-animation-1 .spotlight-item.enable_border_color .has--border_s2 + .spotlight-button {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    body:not(.safari).banner-animation-1 .shouldShow .spotlight-item.enable_border_color:hover .spotlight-button,
+    body:not(.safari).banner-animation-1 .shouldShow .spotlight-item.enable_border_color .has--border_s2 + .spotlight-button {
+        visibility: visible;
+        opacity: 1;
+    }
+}
