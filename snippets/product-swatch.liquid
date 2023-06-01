@@ -1,0 +1,109 @@
+{%- liquid
+    assign variantCount = product.variants | size
+    assign swatch_type = settings.swatch_type
+    assign colorList = ''
+    assign color = ''
+    assign count = 0
+    assign file_extension = 'png'
+-%}
+{%- if variantCount > 0 and product.variants.first.title != 'Default Title' -%}
+    <div class="card-swatch text-{{ settings.product_content_text_align }} clearfix{% if settings.quick_shop_type == '2' %} quick_shop_type_2{% endif %}" id="product-swatch-{{ product.id }}">
+        <ul class="swatch list-unstyled">
+            {%- for variant in product.variants -%}
+                {% capture color %}
+                    {{ variant.options[index] }}
+                {% endcapture %}
+                {%- unless colorList contains color -%}
+                    {%- assign text = color | handleize -%}
+                    {%- if count < 4 -%}
+                        <li class="item">
+                            <div class="item-wrapper clearfix">
+                                <label
+                                    {% if product.options_with_values.size == 1 %}
+                                        data-with-one-option="{{ variant.id }}"
+                                        data-quantity="{% if variant.available %}1{% else %}0{% endif %}"
+                                    {% endif %}
+                                    class="swatch-label{% unless settings.quick_shop_type == '2' %}{% if count == 0 %} is-active{% endif %}{% endunless %}{% if product.options_with_values.size == 1 and variant.unavailable %} is-soldout{% endif %}"
+                                    data-value="{{ text }}"
+                                    data-variant-id="{{ variant.id }}"
+                                    title="{{ color | strip }}"
+                                    {% if variant.image != null %} 
+                                        data-variant-img="{{ variant.image.src | product_img_url: '800x' }}"
+                                    {% endif %}
+                                >
+                                    <span class="pattern" 
+                                    style="{%- if swatch_type == 'variant_image' and variant.image %}
+                                            background-image: url({{ variant.image.src | product_img_url: '40x'}});
+                                            {% else %}
+                                            background-color: {{ color | split: ' ' | last | handle }};
+                                            background-image: url({{ color | handle | append: '.' | append: file_extension | file_url }})
+                                            {% endif %}">
+                                    </span>
+                                    {{ text }} 
+                                </label>
+                                <span class="tooltip">
+                                    {{ color | escape }}
+                                </span>
+                            </div>
+                        </li>
+                    {%- else -%}
+
+                        {% if count == 4 %}
+                            <li class="group-swatch" style="display: none">
+                        {% endif %}
+                            
+                            <div class="item-wrapper clearfix">
+                                <label
+                                    {% if product.options_with_values.size == 1 %}
+                                        data-with-one-option="{{ variant.id }}"
+                                        data-quantity="{% if variant.available %}1{% else %}0{% endif %}"
+                                    {% endif %}
+                                    class="swatch-label{% unless settings.quick_shop_type == '2' %}{% if count == 0 %} is-active{% endif %}{% endunless %}{% if product.options_with_values.size == 1 and variant.unavailable %} is-soldout{% endif %}"
+                                    data-value="{{ text }}"
+                                    data-variant-id="{{ variant.id }}"
+                                    title="{{ color | strip }}"
+                                    {% if variant.image != null %} 
+                                        data-variant-img="{{ variant.image.src | product_img_url: '800x' }}"
+                                    {% endif %}
+                                >
+                                    <span class="pattern" 
+                                    style="{%- if swatch_type == 'variant_image' and variant.image %}
+                                            background-image: url({{ variant.image.src | product_img_url: '40x'}});
+                                            {% else %}
+                                            background-color: {{ color | split: ' ' | last | handle }};
+                                            background-image: url({{ color | handle | append: '.' | append: file_extension | file_url }})
+                                            {% endif %}">
+                                    </span>
+                                    {{ text }}
+                                </label>
+                                <span class="tooltip">
+                                    {{ color | escape }}
+                                </span>
+                            </div>
+
+                        {% if forloop.last %}
+                            </li>
+                        {% endif %}
+
+                    {%- endif -%}
+
+                    {% assign count = count | plus : 1 %}
+
+                    {% capture tempList %}
+                        {{ colorList | append: color | append: ' ' }}
+                    {% endcapture %}
+                    {% assign colorList = tempList %}
+                {%- endunless -%}
+            {%- endfor -%}
+
+            {% if count > 4 %}
+                <li class="item-swatch-more item">
+                    <button type="button" class="number-showmore" title="More Color">
+                        <span>+</span> <span class="text-number">{{ count | minus : 4 }}</span>
+                    </button>
+                </li>
+            {% endif %}
+
+        </ul>
+    </div>
+{%- endif -%}

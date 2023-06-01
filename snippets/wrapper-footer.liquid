@@ -1,0 +1,18 @@
+{%- if settings.enable_footer_brand -%}
+	{% section 'brand-slider' %}
+{%- endif -%}
+
+{%- if settings.enable_footer_policies -%}
+	{% section 'policies-block' %}
+{%- endif -%}
+
+{%- case settings.footer_layout -%}
+	{%- when '01' -%}
+		{% section 'footer' %}
+	{%- when '02' -%}
+		{% section 'footer-02' %}
+	{%- when '03' -%}
+		{% section 'footer-03' %}
+	{%- when '04' -%}
+		{% section 'footer-04' %}
+{%- endcase -%}
